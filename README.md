@@ -1,8 +1,8 @@
-# Data Analysis Portfolio
+# Data Analysis
 
 > 데이터 분석가로 일하며 고민한 질문들을 실험, 인과추론, 지표, 일하는 방식 네 갈래로 정리한 저장소다. 모든 폴더는 **질문 → 결론 → 방법 → 결과 → 한계** 순서로 쓰고, README의 숫자는 `run.py`가 다시 만들어 내며 테스트가 지킨다.
 
-[![ci](https://github.com/daycornday/data-analysis-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/daycornday/data-analysis-portfolio/actions/workflows/ci.yml)
+[![ci](https://github.com/daycornday/data-analysis/actions/workflows/ci.yml/badge.svg)](https://github.com/daycornday/data-analysis/actions/workflows/ci.yml)
 
 ## 한눈에 보기
 
