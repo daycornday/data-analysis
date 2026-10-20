@@ -6,31 +6,21 @@ on:
   pull_request:
 
 jobs:
-  check:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.10"
       - run: pip install -r requirements.txt
-      - name: 계산 함수 테스트 (문서 예시값, statsmodels 대조)
-        run: pytest -q
-      - name: 문서 머리말, 섹션 순서, 링크 검사
-        run: python scripts/validate_docs.py
-      - name: 문서 사이트 빌드
-        run: mkdocs build --strict
-
-  deploy:
-    needs: check
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - run: pip install -r requirements.txt
-      - run: mkdocs gh-deploy --force
+      - name: 저장소 검사 (금지 문자, 금지어, 폴더 구조)
+        run: python scripts/check_repo.py
+      - name: 플레이북 문서 형식 검사
+        run: python experimentation-playbook/scripts/validate_docs.py
+      - name: 폴더별 테스트
+        run: |
+          for d in */tests; do
+            echo "== $d"
+            python -m pytest "$d" -q -p no:warnings || exit 1
+          done

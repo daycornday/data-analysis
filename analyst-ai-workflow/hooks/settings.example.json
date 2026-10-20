@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -X utf8 \"${CLAUDE_PROJECT_DIR}/analyst-ai-workflow/hooks/session_status.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -X utf8 \"${CLAUDE_PROJECT_DIR}/analyst-ai-workflow/hooks/doc_guard.py\"",
+            "timeout": 15,
+            "statusMessage": "문서 금지 문자 검사"
+          }
+        ]
+      }
+    ]
+  }
+}

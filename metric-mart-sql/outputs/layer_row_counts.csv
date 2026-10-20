@@ -1,0 +1,11 @@
+table,rows
+raw_users,2040
+raw_payments,1007
+raw_events,31281
+stg_users,2000
+stg_payments,967
+stg_events,29815
+dim_users,2000
+dim_date,90
+fct_orders,967
+fct_events,29815

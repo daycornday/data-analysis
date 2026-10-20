@@ -1,0 +1,8 @@
+covariate,smd_before,smd_after
+age,-0.796,0.132
+educ,-0.679,-0.119
+black,2.428,0.015
+marr,-1.233,0.116
+nodegree,0.904,0.161
+re74,-1.569,0.034
+re75,-1.746,0.065

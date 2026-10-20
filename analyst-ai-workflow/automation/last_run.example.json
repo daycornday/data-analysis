@@ -1,0 +1,13 @@
+{
+  "run_started": "2026-01-10T09:00:05",
+  "run_finished": "2026-01-10T09:41:30",
+  "dry_run": false,
+  "overall": "partial",
+  "post": {
+    "topic": "검정력과 표본 크기",
+    "file": "posts/04_power.md",
+    "status": "draft",
+    "detail": "검사는 통과했으나 발행 명령이 로그인 만료로 실패해 임시저장으로 남김"
+  },
+  "actions_needed": ["블로그 플랫폼에 다시 로그인한 뒤 posts/04_power.md 발행"]
+}

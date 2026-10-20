@@ -1,59 +1,73 @@
-# 실험 플레이북 (experimentation-playbook)
+# Data Analysis Portfolio
 
-> A/B 테스트와 인과추론을 실무에서 쓰면서 정리한 **판단 기준** 모음. 문서마다 "언제 쓰나 → 판단 기준 → 핵심 패턴 → 안티패턴" 순서로 쓰고, 식은 코드와 테스트로 검증한다.
+> 데이터 분석가로 일하며 고민한 질문들을 실험, 인과추론, 지표, 일하는 방식 네 갈래로 정리한 저장소다. 모든 폴더는 **질문 → 결론 → 방법 → 결과 → 한계** 순서로 쓰고, README의 숫자는 `run.py`가 다시 만들어 내며 테스트가 지킨다.
 
-## 구조
+[![ci](https://github.com/daycornday/data-analysis-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/daycornday/data-analysis-portfolio/actions/workflows/ci.yml)
 
-```
-experimentation-playbook/
-├── docs/
-│   ├── index.md              ← 질문으로 찾기 (이 질문이면 이 문서)
-│   ├── decision-tree.md      ← 상황별 방법 고르기 (무작위 가능? → 유저 단위? → …)
-│   ├── methods/              ← 방법론 문서. 모두 같은 4단 구조
-│   │   ├── _template.md      ← 새 문서는 여기서 시작
-│   │   ├── power-and-sample-size.md
-│   │   └── z-vs-t.md
-│   ├── forms/                ← 실험 설계서, 결과 보고서 양식
-│   ├── roadmap.md            ← 다음에 쓸 문서와 순서
-│   └── assets/               ← 그림 (스크립트로 다시 생성 가능)
-├── src/playbook/             ← 문서의 식을 옮긴 함수 (표본 크기, 검정력, MDE, 다중 비교)
-├── tests/                    ← 문서 예시값과 statsmodels 결과를 함께 맞추는 테스트
-├── scripts/
-│   ├── make_power_figures.py ← 그림 생성
-│   └── validate_docs.py      ← 머리말, 섹션 순서, 링크 검사 (CI에서 실행)
-└── .github/workflows/ci.yml  ← 테스트 → 문서 검사 → 사이트 빌드 → GitHub Pages 배포
+## 한눈에 보기
+
+```mermaid
+flowchart LR
+    Q["효과를 알고 싶다"] --> R{"무작위로 나눌 수 있나?"}
+    R -- 예 --> P["experimentation-playbook<br>표본 크기, 검정, 다중 비교"]
+    R -- 아니오 --> C["causal-inference<br>DID, PSM"]
+    Q2["광고비를 판단하고 싶다"] --> M["marketing-incrementality<br>홀드아웃, 지역 실험, MMM"]
+    Q3["무엇을 고쳐야 하나"] --> G["growth-markov<br>segmentation-gmm<br>aha-moment-mcc"]
+    Q4["숫자를 믿을 수 있나"] --> V["metric-mart-sql<br>analysis-validation-kit"]
 ```
 
-## 빠른 시작
+## 폴더
+
+### 1. 판단 기준: 실험을 어떻게 설계하고 읽나
+
+| 폴더 | 답하는 질문 | 핵심 결과 |
+|---|---|---|
+| [experimentation-playbook](experimentation-playbook/) | 몇 명, 며칠 돌려야 하나? z와 t는 언제 다른가? | 실무 판단 기준 문서 모음. 2주마다 문서가 하나씩 늘어난다 |
+| [causal-inference](causal-inference/) | 무작위 배정을 못 하면 효과를 어떻게 구하나? | 공개 데이터 재현. DID -2.25%p, PSM +$1,775 (실험 정답 +$1,794) |
+
+### 2. 문제 발견: 무엇을 고쳐야 하나
+
+| 폴더 | 답하는 질문 | 핵심 결과 |
+|---|---|---|
+| [growth-markov](growth-markov/) | 어느 전이를 1%p 고치면 활성 유저가 가장 많이 느나? | 7상태 전이행렬, 레버별 12개월 효과 순위 |
+| [segmentation-gmm](segmentation-gmm/) | 합이 1인 사용 비중으로 유저를 어떻게 나누나? | 원자료 k-means ARI 0.54 → CLR + GMM 0.88 |
+| [aha-moment-mcc](aha-moment-mcc/) | "N번 하면 남는다"의 N은 어떻게 고르나? | aha-ratio는 기저율에 눌린다. MCC로 고른 문턱과 비교 |
+
+### 3. 마케팅 측정: 광고비를 무엇으로 판단하나
+
+| 폴더 | 답하는 질문 | 핵심 결과 |
+|---|---|---|
+| [marketing-incrementality](marketing-incrementality/) | 기여(어트리뷰션)와 증분은 무엇이 다른가? | 마지막 클릭 기여가 증분을 3.8배 부풀림. 홀드아웃, 지역 실험, MMM 비교 |
+
+### 4. 데이터 신뢰: 숫자를 믿을 수 있나
+
+| 폴더 | 답하는 질문 | 핵심 결과 |
+|---|---|---|
+| [metric-mart-sql](metric-mart-sql/) | 원본 로그에서 지표까지 어떻게 쌓나? | staging → 스타 스키마 → 지표 레이어, 데이터 테스트 17개 |
+| [analysis-validation-kit](analysis-validation-kit/) | "검증했다"는 어디까지인가? | 버그 5개를 심은 마트를 검사 11개가 잡아낸다 |
+
+### 5. 일하는 방식
+
+| 폴더 | 내용 |
+|---|---|
+| [analyst-ai-workflow](analyst-ai-workflow/) | 반복 업무를 Claude Code 스킬로, 지켜야 할 규칙은 훅과 검사로 강제한 구성 |
+| [til](til/) | 짧은 학습 노트 (트래킹 유실, 예약 실행, SQL grain 체크리스트) |
+
+## 모든 폴더가 지키는 것
+
+- **숫자는 다시 만들 수 있다.** 폴더 안에서 `python run.py`를 실행하면 README의 숫자와 그림이 그대로 나온다
+- **코드는 정답으로 검증한다.** 정답을 알고 심은 합성 데이터에서 방법이 그 정답을 되찾는지 테스트한다
+- **한계를 같이 적는다.** 결과가 말해 주지 않는 것과 다음 단계를 README 끝에 둔다
+- **실제 회사 데이터는 쓰지 않는다.** 공개 데이터(출처 명시) 또는 시드를 고정한 합성 데이터만 쓴다
+- 자세한 규칙은 [CONVENTIONS.md](CONVENTIONS.md), 검사는 [scripts/check_repo.py](scripts/check_repo.py)와 CI가 맡는다
+
+## 실행
 
 ```bash
 pip install -r requirements.txt
-pytest -q                          # 계산 검증
-python scripts/validate_docs.py    # 문서 형식 검사
-mkdocs serve                       # 문서 사이트 미리보기
+python scripts/check_repo.py                 # 저장소 규칙 검사
+python -m pytest growth-markov/tests -q      # 폴더별 테스트
+cd growth-markov && python run.py            # 결과 재현
 ```
 
-```python
-from playbook import sample_size_per_group, mde_given_n
-
-sample_size_per_group(p0=0.10, mde=0.01)   # 그룹당 14,749명
-mde_given_n(p0=0.10, n_per_group=5_000)    # 5천 명으로 잡을 수 있는 최소 차이
-```
-
-## 지금 있는 문서
-
-| 문서 | 답하는 질문 |
-|---|---|
-| [검정력과 표본 크기](docs/methods/power-and-sample-size.md) | 몇 명, 며칠? p > 0.05면 효과가 없는 건가? |
-| [z 검정과 t 검정](docs/methods/z-vs-t.md) | 두 그룹 비교에 z와 t 중 무엇을? 표본이 크면 차이가 있나? |
-| [방법 고르기](docs/decision-tree.md) | 무작위 배정이 안 되면 무엇을 쓰나? |
-| [실험 설계서](docs/forms/experiment-design.md), [결과 보고서](docs/forms/results-report.md) | 실험 전에 무엇을 고정하고, 결과를 어떻게 보고하나? |
-
-다음 문서 순서는 [로드맵](docs/roadmap.md)에 있다.
-
-## 이렇게 만든 이유
-
-- **안티패턴을 따로 둔다.** 방법을 아는 것보다 틀리는 지점을 아는 게 실무에서 더 쓸모 있다. 실무에서 직접 겪은 실수를 회사 정보 없이 일반화해 적는다.
-- **문서의 숫자는 테스트가 지킨다.** 문서 예시값(그룹당 약 1만 4,750명 등)을 `tests/`가 같이 확인해서, 식을 고치면 문서와 코드가 함께 맞는지 드러난다.
-- **형식은 CI가 지킨다.** 새 문서가 4단 구조나 머리말을 빼먹으면 빌드가 실패한다.
-- **모든 수치는 가상 시나리오다.** 실제 서비스 데이터는 쓰지 않는다.
+Python 3.8 이상, numpy, pandas, scipy, statsmodels, scikit-learn, matplotlib.

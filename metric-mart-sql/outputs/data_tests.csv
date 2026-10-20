@@ -1,0 +1,18 @@
+test,failures,passed
+unique dim_users.user_id,0,True
+unique dim_date.date_day,0,True
+unique fct_orders.order_id,0,True
+unique fct_events.event_id,0,True
+not_null dim_users.signup_date,0,True
+not_null fct_orders.user_id,0,True
+not_null fct_orders.amount,0,True
+not_null fct_events.user_id,0,True
+relationships fct_orders.user_id -> dim_users,0,True
+relationships fct_events.user_id -> dim_users,0,True
+relationships fct_events.event_date -> dim_date,0,True
+row_count stg_users = dim_users,0,True
+row_count stg_payments = fct_orders,0,True
+row_count stg_events = fct_events,0,True
+sum revenue: metric_arppu = fct_orders(paid),0,True
+"sum dau: metric_daily_active = fct_events(user, day)",0,True
+sum new_users: metric_daily_active = dim_users,0,True
