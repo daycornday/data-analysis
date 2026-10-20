@@ -1,8 +1,9 @@
-numpy
-pandas
-scipy
-statsmodels
-scikit-learn
-matplotlib
-pyyaml
-pytest
+# README의 숫자는 아래 버전에서 만들었다. 다른 버전에서는 소수점 아래가 조금 달라질 수 있다
+numpy==1.20.1
+pandas==1.2.4
+scipy==1.6.2
+statsmodels==0.12.2
+scikit-learn==0.24.1
+matplotlib==3.3.4
+pyyaml==5.4.1
+pytest==6.2.3
