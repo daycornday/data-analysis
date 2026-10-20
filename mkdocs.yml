@@ -17,6 +17,7 @@ nav:
   - 방법 고르기: decision-tree.md
   - 방법론:
       - 검정력과 표본 크기: methods/power-and-sample-size.md
+      - z 검정과 t 검정: methods/z-vs-t.md
   - 양식:
       - 실험 설계서: forms/experiment-design.md
       - 결과 보고서: forms/results-report.md

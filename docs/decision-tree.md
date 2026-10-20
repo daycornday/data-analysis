@@ -32,6 +32,7 @@ flowchart TD
 | 도착점 | 문서 | 상태 |
 |---|---|---|
 | A/B 테스트, 표본 크기 | [검정력과 표본 크기](methods/power-and-sample-size.md) | 완료 |
+| 두 그룹 비교 검정 고르기 | [z 검정과 t 검정](methods/z-vs-t.md) | 완료 |
 | CUPED | 작성 예정 | |
 | 순차 검정 | 작성 예정 | |
 | 다중 비교 보정 | 작성 예정 | |

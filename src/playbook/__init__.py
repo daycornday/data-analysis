@@ -6,6 +6,12 @@ from .power import (
     power_given_n,
     sample_size_per_group,
 )
+from .ztest_ttest import (
+    critical_value,
+    student_ttest,
+    two_proportion_ztest,
+    welch_ttest,
+)
 
 __all__ = [
     "sample_size_per_group",
@@ -14,4 +20,8 @@ __all__ = [
     "days_needed",
     "bonferroni_alpha",
     "familywise_error",
+    "critical_value",
+    "two_proportion_ztest",
+    "welch_ttest",
+    "student_ttest",
 ]

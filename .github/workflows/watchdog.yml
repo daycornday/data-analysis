@@ -2,12 +2,16 @@ name: watchdog
 
 # 격주 자동 발행이 멈췄는지 감시한다. 집 PC가 꺼져 있어도 GitHub 서버에서 돈다.
 # 매주 월요일 09:00 (KST) 에 플레이북 마지막 커밋과 블로그 RSS 최신 글 날짜를 보고,
-# 15일 넘게 새 글이 없으면 휴대폰(ntfy)으로 알린다.
+# 15일 넘게 새 글이 없으면 이 저장소에 이슈를 만든다 (GitHub가 이메일로 알려 준다).
 
 on:
   schedule:
     - cron: "0 0 * * 1"
   workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
 
 jobs:
   check:
@@ -18,11 +22,11 @@ jobs:
           fetch-depth: 0
       - name: 마지막 발행 날짜 확인
         env:
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          GH_TOKEN: ${{ github.token }}
           MAX_DAYS: "15"
         run: |
           python3 - <<'PY'
-          import datetime as dt, email.utils, json, os, subprocess, urllib.request, xml.etree.ElementTree as ET
+          import datetime as dt, email.utils, os, subprocess, urllib.request, xml.etree.ElementTree as ET
 
           now = dt.datetime.now(dt.timezone.utc)
           max_days = int(os.environ["MAX_DAYS"])
@@ -46,14 +50,9 @@ jobs:
 
           print("problems:", problems)
           if problems:
-              body = {
-                  "topic": os.environ["NTFY_TOPIC"],
-                  "title": "지식 발행 자동화가 멈춘 것 같습니다",
-                  "message": "\n".join(problems) + "\n집 PC 전원, 티스토리 로그인, 작업 스케줄러를 확인하세요.",
-                  "priority": 5,
-                  "tags": ["warning"],
-              }
-              req = urllib.request.Request("https://ntfy.sh/", data=json.dumps(body, ensure_ascii=False).encode(),
-                                           headers={"Content-Type": "application/json"}, method="POST")
-              urllib.request.urlopen(req, timeout=15)
+              title = "지식 발행 자동화가 멈춘 것 같습니다"
+              open_titles = subprocess.check_output(["gh", "issue", "list", "--state", "open", "--json", "title", "--jq", ".[].title"]).decode()
+              if title not in open_titles:
+                  body = chr(10).join("- " + p for p in problems) + chr(10) * 2 + "집 PC 전원, 티스토리 로그인, 작업 스케줄러를 확인하세요."
+                  subprocess.check_call(["gh", "issue", "create", "--title", title, "--body", body])
           PY
