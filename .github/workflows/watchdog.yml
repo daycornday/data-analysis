@@ -1,0 +1,59 @@
+name: watchdog
+
+# 격주 자동 발행이 멈췄는지 감시한다. 집 PC가 꺼져 있어도 GitHub 서버에서 돈다.
+# 매주 월요일 09:00 (KST) 에 플레이북 마지막 커밋과 블로그 RSS 최신 글 날짜를 보고,
+# 15일 넘게 새 글이 없으면 휴대폰(ntfy)으로 알린다.
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 마지막 발행 날짜 확인
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          MAX_DAYS: "15"
+        run: |
+          python3 - <<'PY'
+          import datetime as dt, email.utils, json, os, subprocess, urllib.request, xml.etree.ElementTree as ET
+
+          now = dt.datetime.now(dt.timezone.utc)
+          max_days = int(os.environ["MAX_DAYS"])
+          problems = []
+
+          ts = subprocess.check_output(["git", "log", "-1", "--format=%ct", "origin/main"]).decode().strip()
+          last_commit = dt.datetime.fromtimestamp(int(ts), dt.timezone.utc)
+          commit_days = (now - last_commit).days
+          if commit_days > max_days:
+              problems.append(f"플레이북: 마지막 커밋 {commit_days}일 전")
+
+          try:
+              with urllib.request.urlopen("https://amint9410.tistory.com/rss", timeout=20) as r:
+                  root = ET.fromstring(r.read())
+              dates = [email.utils.parsedate_to_datetime(i.findtext("pubDate")) for i in root.iter("item")]
+              blog_days = (now - max(dates)).days
+              if blog_days > max_days:
+                  problems.append(f"블로그: 마지막 글 {blog_days}일 전")
+          except Exception as e:
+              problems.append(f"블로그 RSS 확인 실패: {e}")
+
+          print("problems:", problems)
+          if problems:
+              body = {
+                  "topic": os.environ["NTFY_TOPIC"],
+                  "title": "지식 발행 자동화가 멈춘 것 같습니다",
+                  "message": "\n".join(problems) + "\n집 PC 전원, 티스토리 로그인, 작업 스케줄러를 확인하세요.",
+                  "priority": 5,
+                  "tags": ["warning"],
+              }
+              req = urllib.request.Request("https://ntfy.sh/", data=json.dumps(body, ensure_ascii=False).encode(),
+                                           headers={"Content-Type": "application/json"}, method="POST")
+              urllib.request.urlopen(req, timeout=15)
+          PY
