@@ -88,7 +88,7 @@ CLR + GMM 세그먼트 프로파일(`outputs/segment_profile.csv`). 이름은 �
 
 ## 실행
 ```
-pip install -r ../requirements.txt
+pip install -r ../../requirements.txt
 python run.py
 python -m pytest tests
 ```

@@ -147,7 +147,7 @@ CPS 대조군 대부분은 성향점수 0 근처에 몰려 있고, 훈련 참가
 ## 실행
 
 ```
-pip install -r ../requirements.txt
+pip install -r ../../requirements.txt
 python run.py
 python -m pytest tests
 ```

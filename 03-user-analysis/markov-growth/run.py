@@ -1,4 +1,4 @@
-"""growth-markov의 모든 숫자와 그림을 처음부터 다시 만든다. 실행: python run.py"""
+"""markov-growth의 모든 숫자와 그림을 처음부터 다시 만든다. 실행: python run.py"""
 import sys
 from pathlib import Path
 

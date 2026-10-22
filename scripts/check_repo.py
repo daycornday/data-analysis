@@ -26,12 +26,15 @@ def main():
         for w in BANNED_WORDS:
             if w in text:
                 errors.append(f"{rel}: 금지어 {w}")
-    for d in sorted(p for p in ROOT.iterdir() if p.is_dir() and not p.name.startswith((".", "_")) and p.name != "scripts"):
+    topics = sorted(p for p in ROOT.iterdir() if p.is_dir() and re.match(r"\d\d-", p.name))
+    projects = [q for t in topics for q in sorted(t.iterdir()) if q.is_dir()]
+    for d in topics + projects + [ROOT / "notes"]:
+        rel = d.relative_to(ROOT)
         for f in PROJECT_FILES:
             if not (d / f).exists():
-                errors.append(f"{d.name}: {f} 없음")
+                errors.append(f"{rel}: {f} 없음")
         if (d / "run.py").exists() and not (d / "tests").exists():
-            errors.append(f"{d.name}: run.py는 있는데 tests 없음")
+            errors.append(f"{rel}: run.py는 있는데 tests 없음")
     for e in errors:
         print("FAIL", e)
     print("repo ok" if not errors else f"{len(errors)}건 실패")

@@ -14,7 +14,7 @@
 └── outputs/           # run.py가 만드는 그림(png)과 결과 표(csv/md)
 ```
 
-- 패키지 이름은 폴더 이름의 하이픈을 밑줄로 바꾼 것 (`growth-markov` → `growth_markov`)
+- `src/` 아래에는 패키지 하나만 둔다
 - `tests/conftest.py`에서 `src`를 sys.path에 넣는다. 루트에서 `python -m pytest <folder>/tests`가 돌아야 한다
 - run.py는 폴더 안에서 `python run.py`로 실행. 경로는 `Path(__file__).parent` 기준
 
@@ -48,7 +48,7 @@
 이 분석이 말해 주지 않는 것
 
 ## 실행
-pip install -r ../requirements.txt
+pip install -r ../../requirements.txt
 python run.py
 python -m pytest tests
 

@@ -1,11 +1,11 @@
-# 실험 플레이북 (experimentation-playbook)
+# 실험 플레이북
 
 > A/B 테스트와 인과추론을 실무에서 쓰면서 정리한 **판단 기준** 모음. 문서마다 "언제 쓰나 → 판단 기준 → 핵심 패턴 → 안티패턴" 순서로 쓰고, 식은 코드와 테스트로 검증한다.
 
 ## 구조
 
 ```
-experimentation-playbook/
+playbook/
 ├── docs/
 │   ├── index.md              ← 질문으로 찾기 (이 질문이면 이 문서)
 │   ├── decision-tree.md      ← 상황별 방법 고르기 (무작위 가능? → 유저 단위? → …)
@@ -26,7 +26,7 @@ experimentation-playbook/
 ## 빠른 시작
 
 ```bash
-pip install -r ../requirements.txt
+pip install -r ../../requirements.txt
 python -m pytest tests -q          # 계산 검증
 python scripts/validate_docs.py    # 문서 형식 검사
 ```

@@ -66,7 +66,7 @@
 
 ## 실행
 ```
-pip install -r ../requirements.txt
+pip install -r ../../requirements.txt
 python run.py
 python -m pytest tests
 ```

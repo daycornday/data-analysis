@@ -42,7 +42,7 @@ flowchart TD
 ## 폴더 구성
 
 ```
-analyst-ai-workflow/
+claude-code/
 ├── skills/
 │   ├── sql-review/            # SQL 채점: 정답, grain, 효율, 실무 자연스러움
 │   ├── experiment-readout/    # A/B 결과 보고서: SRM, 검정력, 다중 비교, 해석
@@ -113,7 +113,7 @@ analyst-ai-workflow/
 ## 실행
 
 ```
-pip install -r ../requirements.txt
+pip install -r ../../requirements.txt
 python -m pytest tests
 ```
 
@@ -129,10 +129,10 @@ python -X utf8 automation/check_doc.py tests/fixtures/good_post.md --min-chars 2
 
 ```
 # cron, 격주 토요일 09:00 (짝수 주만 실행하려면 스크립트 앞에 주차 조건을 둔다)
-0 9 * * 6 cd /path/to/repo/analyst-ai-workflow && python automation/run_publish.py
+0 9 * * 6 cd /path/to/repo/06-workflow/claude-code && python automation/run_publish.py
 
 # 윈도우 작업 스케줄러
-schtasks /Create /SC WEEKLY /MO 2 /D SAT /ST 09:00 /TN KnowledgePublish /TR "python <저장소>\analyst-ai-workflow\automation\run_publish.py"
+schtasks /Create /SC WEEKLY /MO 2 /D SAT /ST 09:00 /TN KnowledgePublish /TR "python <저장소>\06-workflow\claude-code\automation\run_publish.py"
 ```
 
 환경변수

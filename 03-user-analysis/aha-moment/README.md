@@ -82,7 +82,7 @@ MCC 공식 값 0.080710과 `np.corrcoef(예측, 실제)` 값 0.080710의 차이�
 ## 실행
 
 ```
-pip install -r ../requirements.txt
+pip install -r ../../requirements.txt
 python run.py
 python -m pytest tests
 ```

@@ -177,7 +177,7 @@ DAU는 평균 110.0명, 최대 167명이다. 가입자가 계속 들어오므로
 ## 실행
 
 ```
-pip install -r ../requirements.txt
+pip install -r ../../requirements.txt
 python run.py
 python -m pytest tests
 ```

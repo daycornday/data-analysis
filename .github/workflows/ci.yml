@@ -17,10 +17,10 @@ jobs:
       - name: 저장소 검사 (금지 문자, 금지어, 폴더 구조)
         run: python scripts/check_repo.py
       - name: 플레이북 문서 형식 검사
-        run: python experimentation-playbook/scripts/validate_docs.py
+        run: python 01-experiment/playbook/scripts/validate_docs.py
       - name: 폴더별 테스트
         run: |
-          for d in */tests; do
+          for d in $(find . -path ./.git -prune -o -type d -name tests -print | sort); do
             echo "== $d"
             python -m pytest "$d" -q -p no:warnings || exit 1
           done
