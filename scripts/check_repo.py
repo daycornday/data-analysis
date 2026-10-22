@@ -21,6 +21,8 @@ def main():
     for p in text_files():
         text = p.read_text(encoding="utf-8", errors="replace")
         rel = p.relative_to(ROOT)
+        if chr(0x2014) in text:
+            errors.append(f"{rel}: 긴 하이픈 {text.count(chr(0x2014))}개")
         if "\u00b7" in text:
             errors.append(f"{rel}: 가운뎃점 {text.count(chr(0xB7))}개")
         for w in BANNED_WORDS:
