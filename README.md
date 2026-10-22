@@ -1,55 +1,54 @@
 # Data Analysis
 
-실무에서 마주친 분석 질문을 직접 검증하고, 그 근거를 아카이빙하는 저장소입니다.
+분석하다 생긴 질문을 직접 재현해 보고 남겨 두는 아카이브.
 
-IT 플랫폼에서 데이터 분석가로 일하며 A/B 테스트 설계, 인과 효과 추정, 지표 정의, 마케팅 성과 측정을 다뤄 왔습니다. 그 과정에서 "이 상황에 이 방법이 맞는가", "이 숫자를 의사결정에 그대로 써도 되는가" 같은 질문을 반복해서 만났습니다. 답을 내고 넘어간 질문도, 그때는 확신하지 못한 질문도 있었고, 이 저장소는 그 질문들을 하나씩 다시 꺼내 근거와 함께 남겨 두는 곳입니다.
-
-주제마다 다루는 방식은 같습니다. 먼저 교재와 논문으로 개념을 확인하고, 정답을 알고 있는 가상 데이터나 공개 데이터로 직접 재현해서 방법이 실제로 정답을 되찾는지 봅니다. 결과와 함께 이 방법이 어디까지 말해 줄 수 있는지, 어떤 가정 위에 서 있는지도 기록합니다. 회사 데이터는 사용하지 않습니다.
-
-실험 판단 기준 노트(playbook)는 2주 간격으로 계속 추가하고 있고, 진행 내역은 아래 업데이트 기록에 남깁니다.
+- 다루는 것: 실험 설계, 인과추론, 유저 분석, 마케팅 측정, 데이터 품질
+- 데이터: 공개 데이터 또는 정답을 심어 둔 가상 데이터 (회사 데이터는 안 씀)
+- 결과만 적지 않고 가정과 한계도 같이 적어 둠
+- playbook은 2주에 한 편씩 추가 중, 내역은 맨 아래 업데이트 기록
 
 ## 폴더
 
 ### [01. 실험](01-experiment/)
 | 폴더 | 내용 |
 |---|---|
-| [playbook](01-experiment/playbook/) | 실험할 때 자주 헷갈리는 판단 기준 노트. 2주에 한 편씩 추가하고 있습니다 |
+| [playbook](01-experiment/playbook/) | 실험할 때 매번 다시 찾아보게 되는 판단 기준 노트 (2주에 한 편) |
 
 ### [02. 인과추론](02-causal-inference/)
 | 폴더 | 내용 |
 |---|---|
-| [did-psm](02-causal-inference/did-psm/) | 실험을 못 할 때 효과를 추정하는 방법. 공개 데이터로 논문 결과를 다시 계산해 봤습니다 |
+| [did-psm](02-causal-inference/did-psm/) | 실험이 안 될 때 효과 추정. 논문 공개 데이터로 재계산 |
 
 ### [03. 유저 분석](03-user-analysis/)
 | 폴더 | 내용 |
 |---|---|
-| [markov-growth](03-user-analysis/markov-growth/) | 어느 단계를 개선해야 활성 유저가 가장 많이 늘어나는지 |
-| [segmentation](03-user-analysis/segmentation/) | 기능 사용 비중으로 유저를 나눌 때 생기는 함정 |
-| [aha-moment](03-user-analysis/aha-moment/) | "N번 쓰면 남는다"의 N을 고르는 방법 |
+| [markov-growth](03-user-analysis/markov-growth/) | 어느 상태 전이를 고쳐야 활성 유저가 가장 많이 느는지 |
+| [segmentation](03-user-analysis/segmentation/) | 합이 1인 사용 비중으로 군집 나눌 때의 함정 (CLR + GMM) |
+| [aha-moment](03-user-analysis/aha-moment/) | "N번 쓰면 남는다"의 N 고르기 (aha-ratio 대신 MCC) |
 
 ### [04. 마케팅 측정](04-marketing/)
 | 폴더 | 내용 |
 |---|---|
-| [incrementality](04-marketing/incrementality/) | 광고 기여와 실제 증분은 왜 다른지, 증분은 어떻게 재는지 |
+| [incrementality](04-marketing/incrementality/) | 기여와 증분의 차이, 홀드아웃, 지역 실험, MMM 비교 |
 
 ### [05. 데이터 품질](05-data-quality/)
 | 폴더 | 내용 |
 |---|---|
-| [metric-mart](05-data-quality/metric-mart/) | 원본 로그에서 지표 테이블까지 SQL로 쌓는 과정 |
-| [validation](05-data-quality/validation/) | "검증했다"를 어디까지 했는지 단계로 나눠 보기 |
+| [metric-mart](05-data-quality/metric-mart/) | 원본 로그에서 지표 테이블까지 SQL 레이어와 데이터 테스트 |
+| [validation](05-data-quality/validation/) | "검증했다"를 단계로 나누고 흔한 버그를 검사로 잡기 |
 
 ### [06. 일하는 방식](06-workflow/)
 | 폴더 | 내용 |
 |---|---|
-| [claude-code](06-workflow/claude-code/) | 반복 업무를 Claude Code로 자동화한 구성 |
+| [claude-code](06-workflow/claude-code/) | 반복 업무를 Claude Code 스킬, 훅으로 자동화한 구성 |
 
 ### [notes](notes/)
-짧게 정리한 공부 노트입니다.
+짧은 메모 (트래킹 유실, 예약 실행, SQL grain 체크리스트)
 
 ## 업데이트 기록
 
 <!-- 새 기록은 표 맨 위에 추가 -->
 | 날짜 | 내용 |
 |---|---|
-| 2026-10-22 | 폴더를 주제별로 재구성하고 각 프로젝트 문서를 다듬음 |
-| 2026-10-20 | 실험 노트 2편 (검정력과 표본 크기, z 검정과 t 검정), 프로젝트 정리 시작 |
+| 2026-10-22 | 주제별 폴더로 재구성, 문서 정리 |
+| 2026-10-20 | playbook 2편 (검정력과 표본 크기, z 검정과 t 검정), 프로젝트 정리 시작 |
