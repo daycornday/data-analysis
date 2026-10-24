@@ -4,7 +4,7 @@ category: 길잡이
 question: 이 상황에서 어떤 실험이나 분석 방법을 써야 하나?
 related: [power-and-sample-size]
 status: active
-updated: 2026-10-20
+updated: 2026-10-24
 ---
 
 # 방법 고르기
@@ -35,7 +35,7 @@ flowchart TD
 | 두 그룹 비교 검정 고르기 | [z 검정과 t 검정](methods/z-vs-t.md) | 완료 |
 | CUPED | 작성 예정 | |
 | 순차 검정 | 작성 예정 | |
-| 다중 비교 보정 | 작성 예정 | |
+| 다중 비교 보정 | [다중 비교 보정](methods/multiple-comparisons.md) | 완료 |
 | SRM 점검 | 작성 예정 | |
 | 클러스터, 지역 실험 | 작성 예정 | |
 | 스위치백 | 작성 예정 | |

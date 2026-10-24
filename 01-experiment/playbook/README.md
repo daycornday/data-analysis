@@ -10,6 +10,7 @@ A/B 테스트를 설계하거나 결과를 볼 때 "몇 명이면 되지?", "p >
 |---|---|
 | [검정력과 표본 크기](docs/methods/power-and-sample-size.md) | 몇 명, 며칠? p > 0.05면 효과가 없는 건가? |
 | [z 검정과 t 검정](docs/methods/z-vs-t.md) | 두 그룹 비교에 z와 t 중 무엇을? 표본이 크면 차이가 있나? |
+| [다중 비교 보정](docs/methods/multiple-comparisons.md) | A, B, C 세 그룹은 어떻게 비교하나? 지표를 많이 보면? |
 | [방법 고르기](docs/decision-tree.md) | 무작위 배정이 안 되면 무엇을 쓰나? |
 | [실험 설계서](docs/forms/experiment-design.md), [결과 보고서](docs/forms/results-report.md) | 실험 전에 무엇을 고정하고, 결과를 어떻게 보고하나? |
 
@@ -25,7 +26,8 @@ playbook/
 │   ├── methods/              ← 방법론 문서. 모두 같은 4단 구조
 │   │   ├── _template.md      ← 새 문서는 여기서 시작
 │   │   ├── power-and-sample-size.md
-│   │   └── z-vs-t.md
+│   │   ├── z-vs-t.md
+│   │   └── multiple-comparisons.md
 │   ├── forms/                ← 실험 설계서, 결과 보고서 양식
 │   ├── roadmap.md            ← 다음에 쓸 문서와 순서
 │   └── assets/               ← 그림 (스크립트로 다시 생성 가능)
