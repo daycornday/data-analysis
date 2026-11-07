@@ -4,7 +4,7 @@ category: 길잡이
 question: 이 플레이북으로 무엇에 답할 수 있나?
 related: []
 status: active
-updated: 2026-10-24
+updated: 2026-11-07
 ---
 
 # 실험 플레이북
@@ -22,7 +22,8 @@ A/B 테스트와 인과추론을 실무에서 쓰면서 정리한 판단 기준 
 | 그룹이 셋이다. 어떻게 비교하나? | [다중 비교 보정](methods/multiple-comparisons.md) |
 | 2차 지표를 스무 개 봤는데 하나가 유의하다 | [다중 비교 보정](methods/multiple-comparisons.md) 안티패턴 1 |
 | 대조군이 이겼다. 어떻게 해석하나? | 작성 예정 |
-| 한 유저가 여러 번 행동하는데 건수로 검정해도 되나? | 작성 예정 (delta method) |
+| 한 유저가 여러 번 행동하는데 건수로 검정해도 되나? | [건수 기준 지표와 delta method](methods/delta-method.md) |
+| 클릭률이 4% 올랐다. 신뢰구간은 어떻게 내나? | [건수 기준 지표와 delta method](methods/delta-method.md) 핵심 패턴 |
 | 무작위 배정을 못 하는데 효과를 재야 한다 | [방법 고르기](decision-tree.md) |
 
 ## 실험할 때 쓰는 양식
